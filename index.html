@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Content Refresh Prioritization</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    line-height: 1.6;
+}
+h1, h2 {
+    margin-top: 30px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Content Refresh Prioritization Using Historical Search and Content Signals</h1>
+
+<h2>Abstract</h2>
+<p>
+This project investigates whether historical search performance and content characteristics can help identify pages that may benefit from content refresh.
+A content refresh prioritization workflow was developed using page-level search and content features and an interpretable Decision Tree model.
+The model was compared with a simple baseline scoring approach using a train-test evaluation.
+The Decision Tree achieved 63.17% accuracy compared with 55.33% for the baseline in the reported experiment.
+The results are intended as directional decision-support for content teams and do not establish that refreshing a page will causally improve search performance.
+</p>
+
+<h2>Introduction / Problem Statement</h2>
+<p>
+Can historical search performance and content characteristics be used to identify pages that may benefit from content refresh?
+The goal is to support content teams in prioritizing pages for manual review using observed historical search signals.
+</p>
+
+<h2>Data</h2>
+<p>
+This project uses the FlyRank internship search-intelligence dataset available through the internship program.
+The analysis uses page-level observations containing historical search-performance and content characteristics.
+The analysis focuses on historical observations available in the dataset and uses only information available at the time of the prioritization decision.
+</p>
+
+<p>Excluded fields:</p>
+<ul>
+<li>Client identifiers</li>
+<li>Content identifiers</li>
+<li>Target-derived or future-window fields that could leak the prediction target</li>
+<li>Private or identifying information</li>
+</ul>
+
+<p>
+The excluded fields were removed to keep the analysis public-safe and prevent target leakage.
+</p>
+
+<h2>Methodology</h2>
+<p>
+The analysis uses search and content features including search volume, impressions, average position, CTR, word count, content age, and days since last update.
+The target is whether the observed trend direction is "down".
+A Decision Tree classifier was evaluated using an 80/20 train-test split.
+Target-derived fields such as trend direction and trend percentage were excluded from the model inputs to reduce leakage.
+</p>
+
+<h2>Results</h2>
+
+<table>
+<tr>
+<th>Model</th>
+<th>Accuracy</th>
+</tr>
+<tr>
+<td>Baseline Rule</td>
+<td>55.33%</td>
+</tr>
+<tr>
+<td>Decision Tree</td>
+<td>63.17%</td>
+</tr>
+</table>
+
+<p>
+The Decision Tree performed better than the baseline in the reported experiment while remaining relatively interpretable.
+</p>
+
+<h2>Limitations</h2>
+<ul>
+<li>The analysis does not establish a causal relationship between refreshing content and improved search performance.</li>
+<li>Search performance may also be affected by seasonality, marketing activity, competitor activity, and search-engine changes.</li>
+<li>The available dataset does not capture every factor that may influence content performance.</li>
+</ul>
+
+<h2>Ranked Recommendations / Action Playbook</h2>
+<p>
+Pages can be prioritized for manual review using historical impressions, time since the last update, and average search position.
+Higher-priority pages should be reviewed by a human before any refresh decision is made.
+</p>
+
+<h2>Reproducibility</h2>
+<p>
+The analysis notebook and project code are available in the GitHub repository.
+</p>
+
+<p>
+<a href="https://github.com/RayyanA24/flyrank-ml-internship">
+GitHub Repository
+</a>
+</p>
+
+<h2>Acknowledgments & Data Credit</h2>
+<p>
+Built on the FlyRank ML Internship dataset.
+Data source:
+<a href="https://flyrank.ai">FlyRank</a>
+</p>
+
+</body>
+</html>
